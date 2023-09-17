@@ -1,0 +1,68 @@
+/* Navbar background color */
+.navbar {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Navbar link color */
+.navbar a {
+    color: white;
+}
+
+/* Active link background color */
+.navbar-nav .nav-item.active .nav-link {
+    background-color: black;
+    color: white;
+}
+
+body {
+    padding-top: 80px;
+    padding-bottom: 60px; /* Add padding at the bottom to make space for the footer */
+}
+
+/* Add the following CSS to make the footer sticky */
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-nav li {
+    margin-right: 20px;
+}
+
+.footer-nav li:last-child {
+    margin-right: 0;
+}
+
+.books {
+    cursor: pointer;
+    margin-bottom: 2rem;
+}
+
+.books img {
+    transition: 0.3s all;
+}
+
+.books:hover img {
+    opacity: 0.7;
+}

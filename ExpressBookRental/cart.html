@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXPRESS BOOK RENTAL Cart</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css\styles.css">
+<style>
+    .img-sm{
+		width:50%;
+		height:auto;
+	}
+    
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="homepage.html">EXPRESS BOOK RENTAL</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="bookStore.html">Book Store</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="darkModeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dark Mode
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="darkModeDropdown" style="background-color: #333;">
+                            <a class="dropdown-item" href="#" id="darkModeToggle">On</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- table -->
+    <section class="section-content bg padding-y border-top">
+		<div class="container">
+			<br>
+			<h3>View your completed order <a href="check-order.html"><u>here</u></a>.</h3>
+			<h1 class="h1">Orders</h1>
+			<div class="row">
+				<main class="col-sm-12 col-md-9">
+
+					<div class="card">
+						<table class="table table-hover shopping-cart-wrap">
+							<thead class="text-muted">
+								<tr>
+									<th scope="col">Product</th>
+									<th scope="col" width="200">Quantity</th>
+									<th scope="col" width="120">Price</th>
+									<th scope="col" class="text-right" width="200">Action</th>
+								</tr>
+							</thead>
+							<tbody id="productTable">
+
+							</tbody>
+						</table>
+					</div> <!-- card.// -->
+                    <!--Delivery method-->
+					<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#deliveryModal">
+						Set Delivery Method
+					</button>
+					
+					<!-- Pop-out Modal for Delivery Method -->
+					<div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel"
+						 aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deliveryModalLabel">Select Delivery Method</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<!-- Delivery Method Selection -->
+									<div class="form-group">
+										<label for="deliveryMethod">Delivery Method:</label>
+										<select class="form-control" id="deliveryMethod" onchange="updateDeliveryInfo()">
+											<option value="standard">Standard Delivery</option>
+											<option value="express">Express Delivery</option>
+										</select>
+									</div>
+					
+									<!-- Display Expected Delivery Date -->
+									<div id="expectedDeliveryDate">
+										Expected Delivery Date: <span id="deliveryDate"></span>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+				</main> <!-- col.// -->
+				<aside class="col-sm-3">
+					<dl class="dlist-align h4">
+						<dt>Total:</dt>
+						<dd class="text-right"><strong id="totalPrice" data-total-price="0"></strong></dd>
+					</dl>
+
+					<hr>
+					<button id="checkoutButton" class="btn btn-primary btn-block">Checkout</button>
+					</aside>
+    
+</div>
+</div>
+</section>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+  
+//cart 
+var cart = [];
+		var totalPrice
+
+		// jquery ready start
+		$(document).ready(function () {
+
+			if ("ItEndsWithUs" in sessionStorage) {
+				var tempa = JSON.parse(sessionStorage.getItem("ItEndsWithUs"))
+				tempa.forEach((value) => {
+					cart.push(value);
+				})
+			} else {
+				console.log("No item")
+			}
+			if ("ItStartWithUs" in sessionStorage) {
+				var tempb = JSON.parse(sessionStorage.getItem("ItStartWithUs"))
+				tempb.forEach((value) => {
+					cart.push(value);
+				})
+			} else {
+				console.log("No item")
+			}
+			if ("RentStarryNight" in sessionStorage) {
+				var tempc = JSON.parse(sessionStorage.getItem("RentStarryNight"))
+				tempc.forEach((value) => {
+					cart.push(value);
+				})
+			}
+			else {
+				console.log("No item")
+			}
+			if ("RentTheSevenHusbandsOfEvelynHugo" in sessionStorage) {
+				var tempd = JSON.parse(sessionStorage.getItem("RentTheSevenHusbandsOfEvelynHugo"))
+				tempd.forEach((value) => {
+					cart.push(value);
+				})
+			}
+			else {
+				console.log("No item")
+			}
+			if ("RentWhatWeSetinMotion" in sessionStorage) {
+				var tempe = JSON.parse(sessionStorage.getItem("RentWhatWeSetinMotion"))
+				tempe.forEach((value) => {
+					cart.push(value);
+				})
+			}
+			else {
+				console.log("No item")
+			}
+                        if ("RentWheretheForestMeetstheStars" in sessionStorage) {
+				var tempf = JSON.parse(sessionStorage.getItem("RentWheretheForestMeetstheStars"))
+				tempf.forEach((value) => {
+					cart.push(value);
+				})
+			}
+			else {
+				console.log("No item")
+			}
+			renderCart(cart)
+
+
+		});
+
+        function renderCart(cart) {
+			$("#productTable").empty()
+			cart.forEach((val, index) => {
+				$("#productTable").append(`<tr>
+		<td>
+	<figure class="media">
+		<div class="img-wrap"><img src="` + val.picture + `" class="img-thumbnail img-sm"></div>
+		<figcaption class="media-body">
+			<h6 class="title text-truncate">` + val.name + ` </h6>
+			
+		</figcaption>
+	</figure> 
+		</td>
+		<td> 
+			<input id="quantity` + index + `" class="form-control-sm" onchange="updateCartQuantity(` + index + `)" type="number" value="` + val.quantity + `" min="1" max="100" step="1"/>
+		</td>
+		<td> 
+			<div class="price-wrap"> 
+				<var id="price` + index + `" class="price">RM ` + (val.price * val.quantity).toFixed(2) + `</var> 
+				<small class="text-muted">(RM ` + val.price + ` each)</small> 
+			</div> 
+		</td>
+		<td class="text-right"> 
+			<a href="" onclick="removeProduct(` + index + `)" class="btn btn-outline-danger"> × Remove</a>
+		</td>
+	</tr>`)
+			});
+
+			updateTotalPrice()
+		}
+
+		function updateCartQuantity(i) {
+			var quantity = parseInt($("#quantity" + i).val())
+
+			// update cart into session
+			cart[i].quantity = quantity
+			sessionStorage.setItem("cart", JSON.stringify(cart))
+
+			// Update Price
+			$("#price" + i).text("RM " + (parseFloat(cart[i].price * cart[i].quantity).toFixed(2)))
+			updateTotalPrice()
+		}
+
+		// Update Total Price
+function updateTotalPrice() {
+    totalPrice = 0;
+
+    for (var i = 0; i < cart.length; i++) {
+        totalPrice += cart[i].price * cart[i].quantity;
+    }
+
+    // Update the data-total-price attribute and displayed total price
+    $('#totalPrice').attr('data-total-price', totalPrice.toFixed(2));
+    $('#totalPrice').text('RM ' + totalPrice.toFixed(2));
+}
+
+		function removeProduct(i) {
+			cart.splice(i, 1)
+
+			// update cart into session storage
+			sessionStorage.setItem("cart", JSON.stringify(cart));
+			renderCart(cart);
+			event.preventDefault();
+		
+		}
+// cart ended
+
+
+
+//Delivery method
+var deliveryFees = {
+        standard: 5,    // Standard delivery fee
+        express: 10     // Express delivery fee
+    };
+
+    function updateDeliveryInfo() {
+        var selectedDeliveryMethod = document.getElementById("deliveryMethod").value;
+        var deliveryDateElement = document.getElementById("deliveryDate");
+        var totalCostElement = document.getElementById("totalPrice");
+
+        // Calculate the expected delivery date based on the selected method
+        var currentDate = new Date();
+        var expectedDeliveryDate = new Date();
+
+        if (selectedDeliveryMethod === "express") {
+            // Express delivery adds 2 days to the current date
+            expectedDeliveryDate.setDate(currentDate.getDate() + 2);
+        } else {
+            // Standard delivery adds 5 days to the current date
+            expectedDeliveryDate.setDate(currentDate.getDate() + 5);
+        }
+
+        // Format the date as desired (e.g., "Month Day, Year")
+        var options = { year: 'numeric', month: 'long', day: 'numeric' };
+        var formattedDeliveryDate = expectedDeliveryDate.toLocaleDateString(undefined, options);
+
+        // Display the formatted expected delivery date
+        deliveryDateElement.textContent = formattedDeliveryDate;
+
+        // Calculate the delivery fee
+        var deliveryFee = deliveryFees[selectedDeliveryMethod];
+
+        // Update the total price by adding the delivery fee
+        var totalPrice = parseFloat(totalCostElement.dataset.totalPrice);
+        var updatedTotalPrice = totalPrice + deliveryFee;
+        totalCostElement.textContent = "RM " + updatedTotalPrice.toFixed(2);
+
+        // You can also store the selected delivery method and fee in sessionStorage if needed
+        sessionStorage.setItem('selectedDeliveryMethod', selectedDeliveryMethod);
+        sessionStorage.setItem('deliveryFee', deliveryFee);
+    }
+
+    // Call the updateDeliveryInfo function on page load to initialize the delivery fee
+    updateDeliveryInfo();
+
+	
+//end
+
+//send data to checkout
+// Handle the checkout button click event
+$("#checkoutButton").click(function () {
+    // Store cart data in sessionStorage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+
+    // Get the selected delivery method
+    var selectedDeliveryMethod = document.getElementById("deliveryMethod").value;
+
+    // Calculate the total price including the delivery fee
+    var deliveryFee = deliveryFees[selectedDeliveryMethod];
+    var totalPriceWithDelivery = totalPrice + deliveryFee;
+
+    // Store the selected delivery method and total price in sessionStorage
+    sessionStorage.setItem('selectedDeliveryMethod', selectedDeliveryMethod);
+    sessionStorage.setItem('totalPriceWithDelivery', totalPriceWithDelivery.toFixed(2));
+
+    // Navigate to the checkout.html page
+    window.location.href = "checkout.html";
+});
+
+
+
+//end
+        $(document).ready(function() {
+            // Toggle dark mode
+            $('#darkModeToggle').click(function() {
+                $('body').toggleClass('dark-mode');
+                if ($('body').hasClass('dark-mode')) {
+                    // Dark mode is enabled
+                    localStorage.setItem('darkMode', 'enabled');
+                    $('#darkModeToggle').text('Off');
+                } else {
+                    // Dark mode is disabled
+                    localStorage.setItem('darkMode', 'disabled');
+                    $('#darkModeToggle').text('On');
+                }
+            });
+
+            // Check localStorage for dark mode state on page load
+            const storedDarkMode = localStorage.getItem('darkMode');
+            if (storedDarkMode === 'enabled') {
+                $('body').addClass('dark-mode');
+                $('#darkModeToggle').text('Off');
+            } else {
+                $('body').removeClass('dark-mode');
+                $('#darkModeToggle').text('On');
+            }
+
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPRESS BOOK RENTAL Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <style>
+        /* Custom CSS styles */
+        .sbook input{
+            width : 50px;
+            height : 40px;
+            padding-left : 10px;
+            font-size : 16px;
+            margin-right : 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="homepage.html">EXPRESS BOOK RENTAL</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="bookStore.html">Book Store</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="darkModeDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dark Mode
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="darkModeDropdown" style="background-color: #333;">
+                            <a class="dropdown-item" href="#" id="darkModeToggle">On</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add your code -->
+    <section class="container sbook my-5 pt-5">
+        <div class="row mt-5">
+            <div class="col-lg-5 col-mf-12 col-12">
+                <img class="book img-fluid w-100 pb-1" src="book/WhereTheForestMeetstheStars.jpg" alt="">
+            </div>
+            <div class="col-lg-6 col-mf-12 col-12">
+                <h3 class="py-4">Where the Forest Meets the Stars</h3>
+                <h2>RM 20</h2>
+                <h4>Rent duration (Days)</h4>
+                <button class="rent-btn" id="addToCartBtn" value="6">Add to Cart</button>
+                <h4 class="mt-5 mb-5">Product Details</h4>
+                <span>Jo Teale, a reclusive ornithologist grieving the loss of her mother to cancer, finds herself on an isolated 
+                    cabin retreat in the woods. Her purpose is to study nesting birds, but her real motivation is to escape her 
+                    own emotional wounds. However, her solitude is disrupted when an enigmatic and unconventional young girl named 
+                    Ursa appears on her doorstep one evening. Ursa claims to be an alien on a mission to witness five miracles, 
+                    and she believes Jo is the key to making these miracles happen. Despite Jo's skepticism, she finds herself drawn 
+                    into Ursa's world, and together with Gabriel, their reclusive neighbor who has his own painful past, they form 
+                    an unlikely makeshift family. As the trio navigates the complexities of grief, love, and human connection, they 
+                    are confronted with profound questions about life, death, and the nature of miracles. "Where the Forest Meets 
+                    the Stars" is a poignant exploration of the resilience of the human spirit, the healing power of nature, and 
+                    the transformative force of unexpected friendships.</span>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+var product = JSON.parse(sessionStorage.getItem("RentWheretheForestMeetstheStars")) || [];
+
+$(document).ready(function () {
+          $.getJSON("product.json")
+              .done(function (data) {
+                  $("#addToCartBtn").on("click", function () {
+                      var temp = $(this).val();
+                      var count = 0;
+                      for (var i = 0; i < data.products.length; i++) {
+                          if (data.products[i].id == temp) {
+                              if (product.length == 0) {
+                                  product.push(data.products[i]);
+                              } else {
+                                  product.forEach(function (val) {
+                                      if (val.id == temp) {
+                                          count++;
+                                      }
+                                  });
+                                  if (count == 0) {
+                                      product.push(data.products[i]);
+                                  }
+                              }
+                              // Store the updated product array in session storage
+                              sessionStorage.setItem("RentWheretheForestMeetstheStars", JSON.stringify(product));
+                          }
+                      }
+                  });
+              });
+      });
+    </script>
+    <!-- Footer -->
+    <footer style="background-color: #333; color: white; padding: 20px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>About Us</h4>
+                    <p>We are passionate about connecting readers with their favorite books through our convenient
+                        rental service.</p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="homepage.html" style="color: white;">Home</a></li>
+                        <li><a href="bookStore.html" style="color: white;">Book Store</a></li>
+                        <li><a href="cart.html" style="color: white;">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>Legal</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html" style="color: white;">Terms & Conditions</a></li>
+                        <li><a href="privacy.html" style="color: white;">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #555;">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Express Book Rental. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline social-icons">
+                        <li class="list-inline-item"><a href="#" style="color: white;"><i
+                                    class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" style="color: white;"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="#" style="color: white;"><i
+                                    class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Toggle dark mode
+            $('#darkModeToggle').click(function () {
+                $('body').toggleClass('dark-mode');
+                if ($('body').hasClass('dark-mode')) {
+                    // Dark mode is enabled
+                    localStorage.setItem('darkMode', 'enabled');
+                    $('#darkModeToggle').text('Off');
+                } else {
+                    // Dark mode is disabled
+                    localStorage.setItem('darkMode', 'disabled');
+                    $('#darkModeToggle').text('On');
+                }
+            });
+
+            // Check localStorage for dark mode state on page load
+            const storedDarkMode = localStorage.getItem('darkMode');
+            if (storedDarkMode === 'enabled') {
+                $('body').addClass('dark-mode');
+                $('#darkModeToggle').text('Off');
+            } else {
+                $('body').removeClass('dark-mode');
+                $('#darkModeToggle').text('On');
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "It Ends With Us",
+        "price": 10.00,
+        "description":"Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town in Maine where she grew up — she graduated from college,moved to Boston,and started her own business.",
+        "picture":"book/itEndsWithUs.jpg",
+        "quantity":1
+      },
+      {
+        "id": 2,
+        "name": "It Starts With Us",
+        "price": 15,
+        "description":"Lily and her ex-husband, Ryle, have just settled into a civil coparenting rhythm when she suddenly bumps into her first love, Atlas, again. After nearly two years separated, she is elated that for once, time is on their side, and she immediately says yes when Atlas asks her on a date.",
+        "picture":"book/itStartsWithUs.jpg",
+        "quantity":1
+      },
+      {
+        "id": "3",
+        "name": "Starry Night",
+        "price": 16,
+        "description":"As Claire delves deeper into the mystery of these exquisite artworks, she uncovers a passionate love story from the past, one that transcends time and connects her to a world-renowned Impressionist painter. Through vivid descriptions of the lush landscapes and the shimmering stars that have witnessed countless dreams, Starry Night explores the enduring legacy of art and the profound impact it can have on the human heart.",
+        "picture":"book/StarryNight.png",
+        "quantity":1
+      },
+      {
+        "id": "4",
+        "name": "The Seven Husbands of Evelyn Hugo",
+        "price": 15,
+        "description":"Aging and reclusive Hollywood movie icon Evelyn Hugo is finally ready to tell the truth about her glamorous and scandalous life. But when she chooses unknown magazine reporter Monique Grant for the job, no one is more astounded than Monique herself. Why her? Why now?",
+        "picture":"book/theSevenHusbandsOfEvelynHugo.jpg",
+        "quantity":1
+      },
+
+       {
+        "id": "5",
+        "name": "What We Set In Motion",
+        "price": 20,
+        "description":"Harrison, a young lawyer who returns to his hometown to care for his ailing grandfather, a respected judge. As he navigates the complexities of his family's history, Harrison stumbles upon long-buried secrets that threaten to unravel the very fabric of his identity and the legacy of his family name. Interwoven with Harrison's journey is the story of Helen, a talented artist struggling to find her voice and purpose in life. When their paths cross, an unexpected bond forms between them, sparking a series of events that will forever alter the course of their lives and the lives of those around them.",
+        "picture":"book/What We Set in Motion.jpg",
+        "quantity":1
+      },
+      {
+        "id": "6",
+        "name": "Where the Forest Meets the Stars",
+        "price": 20,
+        "description":"Jo Teale, a reclusive ornithologist grieving the loss of her mother to cancer, finds herself on an isolated cabin retreat in the woods. Her purpose is to study nesting birds, but her real motivation is to escape her own emotional wounds. However, her solitude is disrupted when an enigmatic and unconventional young girl named Ursa appears on her doorstep one evening. Ursa claims to be an alien on a mission to witness five miracles, and she believes Jo is the key to making these miracles happen. Despite Jo's skepticism, she finds herself drawn into Ursa's world, and together with Gabriel, their reclusive neighbor who has his own painful past, they form an unlikely makeshift family. As the trio navigates the complexities of grief, love, and human connection, they are confronted with profound questions about life, death, and the nature of miracles. Where the Forest Meets the Stars is a poignant exploration of the resilience of the human spirit, the healing power of nature, and the transformative force of unexpected friendships.",
+        "picture":"book/WhereTheForestMeetstheStars.jpg",
+        "quantity":1
+      }
+      
+    ]
+  }
+  

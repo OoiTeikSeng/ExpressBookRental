@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css\style.css">
+	<title>Document</title>
+</head>
+
+<body>
+
+	<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+        
+        const firebaseConfig = {
+		  apiKey: "AIzaSyDYEYOTPAv33QsSv2mxwZrfmr0zhDv92e4",
+		  authDomain: "bookrental-f1f7e.firebaseapp.com",
+		  databaseURL: "https://bookrental-f1f7e-default-rtdb.firebaseio.com",
+		  projectId: "bookrental-f1f7e",
+		  storageBucket: "bookrental-f1f7e.appspot.com",
+		  messagingSenderId: "1058202168712",
+		  appId: "1:1058202168712:web:9f8964de3a14bb87da5e3d",
+		  measurementId: "G-5MTZ74RSRY"
+		};
+	  
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+          const registerButton = document.getElementById('registerButton');
+
+          registerButton.addEventListener('click', (e) => {
+
+            var email = document.getElementById('registerEmail').value;
+            var password = document.getElementById('registerPassword').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                alert('User created!');
+              })
+              .catch((error) => {
+                alert(error.message);
+              });
+          });
+        });
+    </script>
+
+	<div class="login">
+		<div class="title">Welcome To Book Rental Express!</div>
+		<div class="des">
+		  Welcome back you've <br> been missed!
+		</div>
+		<div class="group">
+		  <input type="email" id="inputEmail" placeholder="Enter email">
+		</div>
+		<div class="group">
+		  <input type="password" id="inputPassword" placeholder="Password">
+		  <span id="showPassword">
+			<ion-icon name="eye-outline"></ion-icon>
+			<ion-icon name="eye-off-outline"></ion-icon>
+		  </span>
+		</div>
+		<div class="recovery">
+			<a href="">recovery password</a>
+		</div>
+		<div class="signIn">
+            <button id="loginButton">Sign In</button>
+        </div>
+		<div class="or">
+			Or continue with
+		</div>
+		<div class="list">
+			<div class="item">
+				<img id="googleSignIn" src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="">
+			  </div>
+			  <div class="item">
+				<img id="facebookSignIn" src="https://museumandgallery.org/wp-content/uploads/2020/03/Facebook-Icon-Facebook-Logo-Social-Media-Fb-Logo-Facebook-Logo-PNG-and-Vector-with-Transparent-Background-for-Free-Download.png" alt="">
+			  </div>
+			  <div class="item">
+				<img id="twitterSignIn" src="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png" alt="">
+			  </div>
+		</div>
+		<div class="register">
+            Not a member? <a href="#" id="registerNow">Register now</a>
+          </div>
+          
+          <!-- Registration Modal -->
+          <div id="registerModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Register</h2>
+              <input type="email" id="registerEmail" placeholder="Enter email">
+              <input type="password" id="registerPassword" placeholder="Enter password">
+              <button id="registerButton">Register</button>
+            </div>
+          </div>
+
+
+	</div>
+
+	<script src="app.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+<script></script>
+  
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EXPRESS BOOK RENTAL Cart</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #04aa6d;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196f3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+        p.thick{
+            font-weight: bold;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead
+         of next to each other (also change the direction - make the "cart" column go on top) */
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <!-- Navigation bar-->
+    <div class="w3-container">
+        <div class="w3-bar w3-black">
+            <div class="w3-dropdown-hover w3-mobile" style="width: 100%">
+                <button class="w3-button">EXPRESS BOOK RENTAL<i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-dark-grey">
+                    <a href="homepage.html" class="w3-bar-item w3-button w3-mobile">Home</a>
+                    <a href="bookStore.html" class="w3-bar-item w3-button w3-mobile">Book Store</a>
+                            <a href="cart.html" class="w3-bar-item w3-button w3-mobile">Cart</a>
+                            <a href="payment.html" class="w3-bar-item w3-button w3-mobile">Payment</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="darkModeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dark Mode
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="darkModeDropdown" style="background-color: #333;">
+                                    <a class="dropdown-item" href="#" id="darkModeToggle">On</a>
+                                </div>
+                            </li>
+                </div>
+            </div>
+        </div>
+
+        <!--payment side-->
+        <h1 style="text-align: center"><b>PAYMENT RELOADED</b></h1>
+
+        <!-- Content -->
+        <div class="row">
+            <div class="col-100">
+                <div class="container">
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-50">
+                                <h3><b>PAY BY CARD</b></h3>
+                                <h4><label for="Fname"><i class="fa fa-user"></i>ACCEPTED CARDS</label></h4>
+                               
+                                <div class="icon-container">
+                                    <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                    <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                  </div>
+
+                                  <li><label for="cname">Name on Card </label></li>
+                                  <input type="text" id="cname" name="cardname" required/>
+
+                                  <li><label for="ccnum">Credit card number</label></li>
+                                  <input type="text" id="ccnum" name="cardnumber"required/ >
+                                 
+                                  <!--option of month-->
+
+                                  <li><label for="expmonth">Exp Month</label></li>
+                                   <select id="month" name="month">
+                                        <option value="January">January</option>
+                                        <option value="February">February</option>
+                                        <option value="March">March</option>
+                                        <option value="April">April</option>
+                                        <option value="May">May</option>
+                                        <option value="June">June</option>
+                                        <option value="July">July</option>
+                                        <option value="August">August</option>
+                                        <option value="September">September</option>
+                                        <option value="October">October</option>
+                                        <option value="November">November</option>
+                                        <option value="December">December</option>
+                                    </select>
+                                  
+                                  <div class="coloum">
+                                   <div class="col-md-5">
+                                   <li><label for="expyear">Exp Year</label></li>
+                                   <input type="text" id="expyear" name="expyear" required/>
+                                   </div>
+
+                                   <div class="col-md-5">
+                                   <li><label for="cvv">CVV</label></li> 
+                                   <input type="text" id="cvv" name="cvv" required>
+                                   <input type="submit" value="Submit">
+                                   </div>
+
+                                  </div>
+                               </div>    
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+                </div>
+            </div>
+        </div>
+       
+<!-- store the details in local storage n session storage-->
+        <script>
+            const form = document.getElementById("contactForm");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                //style="text-align:center
+                // Get form data
+                const formData = new FormData(form);
+                const contactInfo = {};
+
+                formData.forEach((value, key) => {
+                    contactInfo[key] = value;
+                });
+
+                // Save data in local storage
+                localStorage.setItem("contactInfo", JSON.stringify(contactInfo));
+
+                // Save data in session storage
+                sessionStorage.setItem("contactInfo", JSON.stringify(contactInfo));
+
+                alert("TRANSACTION IS SUCCESFULL.");
+            });
+        </script>
+
+<div class = "w3-bar w3-blue"> 
+ 
+    <button class = "w3-bar-item w3-button w3-blue" style="width: 100%" type="submit" onclick="window.location.href='lastpage.html'">THANK YOU</button>
+</div>
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3><p class="thick">About Us</p></h3>
+                        <p> We are passionate about connecting readers with their favorite
+                            books through our convenient rental service.
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><p class="thick">Quick Links</p></h3>
+                        <ul class="list-unstyled">
+                            <li><a href="homepage.html">Home</a></li>
+                            <li><a href="bookStore.html">Book Store</a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="payment.html">Payment</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr style="border-color: #555" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2023 Express Book Rental. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-inline social-icons">
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap JS and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <script>
+            
+            $(document).ready(function() {
+            // Toggle dark mode
+            $('#darkModeToggle').click(function() {
+                $('body').toggleClass('dark-mode');
+                if ($('body').hasClass('dark-mode')) {
+                    // Dark mode is enabled
+                    localStorage.setItem('darkMode', 'enabled');
+                    $('#darkModeToggle').text('Off');
+                } else {
+                    // Dark mode is disabled
+                    localStorage.setItem('darkMode', 'disabled');
+                    $('#darkModeToggle').text('On');
+                }
+            });
+            // Check localStorage for dark mode state on page load
+            const storedDarkMode = localStorage.getItem('darkMode');
+            if (storedDarkMode === 'enabled') {
+                $('body').addClass('dark-mode');
+                $('#darkModeToggle').text('Off');
+            } else {
+                $('body').removeClass('dark-mode');
+                $('#darkModeToggle').text('On');
+            }
+
+
+        });
+        </script>
+</body>
+
+</html>
